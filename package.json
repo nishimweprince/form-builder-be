@@ -1,0 +1,40 @@
+{
+  "name": "form-builder-be",
+  "version": "1.0.0",
+  "description": "A backend for the form builder application",
+  "main": "src/server.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon --exec ts-node ./src/server.ts",
+    "start": "npm i && tsc && node ./dist/server.js"
+  },
+  "author": "Nishimwe Prince",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nishimweprince/form-builder-be.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nishimweprince/form-builder-be/issues"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "class-validator": "^0.14.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "joi": "^17.13.3",
+    "pg": "^8.15.6",
+    "typeorm": "^0.3.22",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
