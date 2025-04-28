@@ -53,7 +53,10 @@ export class Log extends AbstractEntity {
    */
 
   // USER
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.id, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE'
+  })
   @JoinColumn({ name: 'user_id' })
   user: User;
 }
