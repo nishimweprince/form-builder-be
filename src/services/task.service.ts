@@ -74,6 +74,7 @@ export class TaskService {
       searchQuery,
       page = 0,
       size = 10,
+      createdById,
     } = query;
 
     // INITIALIZE CONDITION
@@ -100,6 +101,10 @@ export class TaskService {
 
     if (priority) {
       condition.priority = priority as TaskPriority;
+    }
+
+    if (createdById) {
+      condition.createdById = createdById as UUID;
     }
 
     if (searchQuery) {

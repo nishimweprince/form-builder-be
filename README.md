@@ -146,7 +146,7 @@ All routes are prefixed with `/api`.
 | DELETE | `/api/tasks/:id`        | Delete a task              | N/A                                          |
 | GET    | `/api/tasks/:id`        | Get task by ID             | N/A                                          |
 | GET    | `/api/tasks/reference/:referenceId` | Get task by reference ID | N/A                                          |
-| GET    | `/api/tasks/`           | List/fetch tasks           | Query params: `status`, `priority`, `searchQuery`, `page`, `startDate`, `endDate` |
+| GET    | `/api/tasks/`           | List/fetch tasks           | Query params: `status`, `priority`, `searchQuery`, `page`, `startDate`, `endDate`, `createdById` |
 
 ---
 

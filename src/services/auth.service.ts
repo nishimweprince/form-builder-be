@@ -12,6 +12,7 @@ import { comparePasswords, hashPassword } from '../helpers/encryptions.helper';
 import { RoleTypes } from '../constants/role.constants';
 import { UserRoleService } from './userRole.service';
 import { RoleService } from './role.service';
+import moment from 'moment';
 
 // LOAD ENV
 const { JWT_SECRET } = process.env;
@@ -52,6 +53,17 @@ export class AuthService {
 
     // HANDLE USER EXISTENCE
     if (userExists) {
+
+      // CHECK IF THE TIME CREATED IS GREATER THAN 10 MINUTES
+      if (
+        userExists?.createdAt &&
+        moment(userExists?.createdAt).diff(moment(), 'minutes') > 10
+      ) {
+        throw new ConflictError('User already exists', {
+          userId: userExists?.id,
+        });
+      }
+
       const userRoles = userExists?.userRoles?.map(
         (userRole) => userRole?.role?.name
       );
