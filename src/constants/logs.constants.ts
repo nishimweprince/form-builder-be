@@ -13,4 +13,5 @@ export enum LogReferenceTypes {
   AUTH = 'AUTH',
   INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
   ROLE = 'ROLE',
+  TASK = 'TASK',
 }

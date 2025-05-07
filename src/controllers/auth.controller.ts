@@ -1,21 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from '../services/auth.service';
 
+// INITIALIZE SERVICES
+const authService = new AuthService();
+
 export class AuthController {
-  private readonly authService: AuthService;
-
-  constructor() {
-    this.authService = new AuthService();
-    this.signup = this.signup.bind(this);
-    this.login = this.login.bind(this);
-  }
-
   /**
    * SIGNUP
    */
   async signup(req: Request, res: Response, next: NextFunction) {
     try {
-      const { user, token } = await this.authService.signup(req.body);
+      const { user, token } = await authService.signup(req.body);
       return res
         .status(201)
         .json({
@@ -32,7 +27,7 @@ export class AuthController {
    */
   async login(req: Request, res: Response, next: NextFunction) {
     try {
-      const { user, token } = await this.authService.login(req.body);
+      const { user, token } = await authService.login(req.body);
       return res
         .status(200)
         .json({

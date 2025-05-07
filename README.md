@@ -7,6 +7,7 @@ The backend of a form builder application, built with Node.js, Express.js, and T
 ## Table of Contents
 
 - [Features](#features)
+- [Folder Structure](#folder-structure)
 - [Setup & Installation](#setup--installation)
 - [Environment Variables](#environment-variables)
 - [Running the Application](#running-the-application)
@@ -25,6 +26,32 @@ The backend of a form builder application, built with Node.js, Express.js, and T
 - Centralized error handling
 - PostgreSQL database integration via TypeORM
 - Clustered server for multi-core performance
+- **Task management (NEW):** Create, update, assign, and track tasks with priorities and statuses
+
+---
+
+## Folder Structure
+
+```
+form-builder-be/
+  src/
+    constants/      # Application-wide constants (roles, tasks, logs, etc.)
+    controllers/    # Route controllers (auth, role, task, ...)
+    entities/       # TypeORM entities (User, Role, Task, Log, ...)
+    helpers/        # Utility/helper functions (pagination, errors, ...)
+    middlewares/    # Express middlewares (auth, ...)
+    routes/         # Express route definitions (auth, role, task, ...)
+    services/       # Business logic/services (auth, role, task, ...)
+    types/          # TypeScript types and interfaces
+    validations/    # Joi validation schemas (user, task, ...)
+    app.ts          # Express app setup
+    data-source.ts  # TypeORM data source config
+    server.ts       # Server entry point
+  logs/             # Log files
+  .env              # Environment variables
+  package.json      # NPM dependencies and scripts
+  README.md         # Project documentation
+```
 
 ---
 
@@ -110,6 +137,17 @@ All routes are prefixed with `/api`.
 |--------|------------------|---------------------|----------------------------|
 | POST   | `/api/roles/`    | Create a new role   | `{ name, description, label, status }` |
 
+### Task Routes (NEW)
+
+| Method | Endpoint                | Description                | Body Params                                  |
+|--------|-------------------------|----------------------------|----------------------------------------------|
+| POST   | `/api/tasks/`           | Create a new task          | `{ title, description, status, priority, assignedToId }` |
+| PATCH  | `/api/tasks/:id`        | Update a task              | `{ title, description, status, priority, assignedToId }` |
+| DELETE | `/api/tasks/:id`        | Delete a task              | N/A                                          |
+| GET    | `/api/tasks/:id`        | Get task by ID             | N/A                                          |
+| GET    | `/api/tasks/reference/:referenceId` | Get task by reference ID | N/A                                          |
+| GET    | `/api/tasks/`           | List/fetch tasks           | Query params: `status`, `priority`, `searchQuery`, `page`, `startDate`, `endDate` |
+
 ---
 
 ## Core Entities
@@ -169,6 +207,23 @@ Tracks system events and user actions.
 | referenceId   | string | Reference to related entity        |
 | referenceType | enum   | Type of referenced entity          |
 | user          | User   | User entity                        |
+
+### Task (NEW)
+
+Represents a task in the system.
+
+| Field         | Type     | Description                        |
+|---------------|----------|------------------------------------|
+| id            | uuid     | Primary key                        |
+| referenceId   | string   | Unique reference for the task      |
+| title         | string   | Task title                         |
+| description   | string   | Task description                   |
+| status        | enum     | `PENDING`, `IN_PROGRESS`, `COMPLETED` |
+| priority      | enum     | `LOW`, `MEDIUM`, `HIGH`            |
+| createdById   | uuid     | User who created the task          |
+| assignedToId  | uuid     | User assigned to the task          |
+| createdBy     | User     | User entity (relation)             |
+| assignedTo    | User     | User entity (relation)             |
 
 ---
 
