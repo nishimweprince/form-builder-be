@@ -198,7 +198,10 @@ export class AuthService {
       throw new ValidationError('Invalid email or password');
     }
 
-    const jwtToken = jwt.sign({ id: userExists.id }, String(JWT_SECRET));
+    const jwtToken = jwt.sign(
+      { id: userExists.id, exp: moment().add(5, 'M').unix() },
+      String(JWT_SECRET)
+    );
 
     return {
       user: {
