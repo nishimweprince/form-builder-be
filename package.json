@@ -4,9 +4,9 @@
   "description": "A backend for the form builder application",
   "main": "src/server.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "npm i && tsc",
     "dev": "nodemon --exec ts-node ./src/server.ts",
-    "start": "npm i && tsc && node ./dist/server.js"
+    "start": "node ./dist/server.js"
   },
   "author": "Nishimwe Prince",
   "license": "ISC",
